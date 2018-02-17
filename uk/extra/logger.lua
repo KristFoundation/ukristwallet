@@ -15,5 +15,5 @@ end
 
 return {
   log = log,
-  LogType = log
+  LogType = LogType
 }
