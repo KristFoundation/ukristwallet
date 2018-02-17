@@ -1,3 +1,5 @@
 .ukristwallet/
 .howl/
 build/
+*.jar
+startup
