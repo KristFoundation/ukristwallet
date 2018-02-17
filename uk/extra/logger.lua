@@ -1,7 +1,7 @@
 local enum = require("uk.extra.enum")
 local DEBUG = true
 
-local LogType = enum("INFO", "DEBUG", "ERROR")
+local LogType = enum {"INFO", "DEBUG", "ERROR"}
 
 local function log(str, level)
   if level == LogType.INFO then

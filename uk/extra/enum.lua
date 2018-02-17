@@ -1,8 +1,12 @@
-return function(...)
+return function(vals)
   local tbl = {}
-  local arg = {...}
-  for i, v in pairs(arg) do
-    tbl[v] = v
+
+  for k, v in pairs(vals) do
+    if type(k) == "number" then
+      tbl[v] = k
+    else
+      tbl[k] = v
+    end
   end
   return tbl
 end
