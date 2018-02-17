@@ -1,4 +1,4 @@
-local enum = function(...)
+return function(...)
   local tbl = {}
   local arg = {...}
   for i, v in pairs(arg) do

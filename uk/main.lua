@@ -1,6 +1,5 @@
---#include enum
---#include log
-
+local log = require("uk.extra.log")
+local LogType = log.LogType
 local jua = require("jua")
 local await = jua.await
 

@@ -1,1 +1,4 @@
-target/
+.howl/
+build/
+Howl.lua
+Howl.min.lua

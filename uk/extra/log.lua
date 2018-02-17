@@ -1,3 +1,4 @@
+local enum = require("uk.extra.enum")
 local DEBUG = true
 
 local LogType = enum("INFO", "DEBUG", "ERROR")
@@ -11,3 +12,8 @@ local function log(str, level)
     error(str)
   end
 end
+
+return {
+  log = log,
+  LogType = log
+}
