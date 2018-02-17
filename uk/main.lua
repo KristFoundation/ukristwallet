@@ -2,8 +2,8 @@ local logger = require("uk.extra.logger")
 local log = logger.log
 local LogType = logger.LogType
 
-local netrequire = require("uk.dep.netrequire")
-local jua = netrequire("https://raw.githubusercontent.com/justync7/Jua/master/jua.lua")
+local ghrequire = require("uk.dep.ghrequire")
+local jua = ghrequire("justync7","Jua","jua.lua")
 local await = jua.await
 
 jua.on("terminate", function()
