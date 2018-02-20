@@ -2,11 +2,6 @@ Options:Default "trace"
 
 Tasks:clean()
 
-Tasks:minify "minify" {
-	input = "build/ukristwallet.lua",
-	output = "build/ukristwallet.min.lua",
-}
-
 Tasks:require "main" {
 	include = "uk/*.lua",
 	startup = "uk/main.lua",
@@ -14,9 +9,17 @@ Tasks:require "main" {
 	api = true
 }
 
-Tasks:Task "build" { "clean", "main", "minify" } :Description "Main build task"
+Tasks:Task "build" { "clean", "main" } :Description "Main build task"
+
+Tasks:minify "minify" {
+	input = "build/ukristwallet.lua",
+	output = "build/ukristwallet.min.lua",
+}
 
 Tasks:Task "run"({"build"}, function()
-  shell.run("build/ukristwallet.lua")
+  local oldDir = shell.dir()
+	shell.setDir(oldDir.."/build")
+  shell.run("ukristwallet")
+	shell.setDir(oldDir)
 end)
   :Description "Runs the program."
