@@ -1,3 +1,4 @@
-return function(j)
- return j <= 13 and "1" or j <= 20 and "2" or j <= 27 and "3" or j <= 34 and "4" or j <= 41 and "5" or j <= 48 and "6" or j <= 55 and "7" or j <= 62 and "8" or j <= 69 and "9" or j <= 76 and "a" or j <= 83 and "b" or j <= 90 and "c" or j <= 97 and "d" or j <= 104 and "e" or j <= 111 and "f" or j <= 118 and "g" or j <= 125 and "h" or j <= 132 and "i" or j <= 139 and "j" or j <= 146 and "k" or j <= 153 and "l" or j <= 160 and "m" or j <= 167 and "n" or j <= 174 and "o" or j <= 181 and "p" or j <= 188 and "q" or j <= 195 and "r" or j <= 202 and "s" or j <= 209 and "t" or j <= 216 and "u" or j <= 223 and "v" or j <= 230 and "w" or j <= 237 and "x" or j <= 244 and "y" or j <= 251 and "z" or "e"
+return function(byte)
+  local byte = 48 + math.floor(byte / 7)
+  return string.char(byte + 39 > 122 and 101 or byte > 57 and byte + 39 or byte)
 end
