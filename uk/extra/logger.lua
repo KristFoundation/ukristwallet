@@ -13,7 +13,22 @@ local function log(str, level)
   end
 end
 
+local function info(str)
+  return log(str, LogType.INFO)
+end
+
+local function debug(str)
+  return log(str, LogType.DEBUG)
+end
+
+local function error(str)
+  return log(str, LogType.ERROR)
+end
+
 return {
   log = log,
+  info = info,
+  debug = debug,
+  error = error,
   LogType = LogType
 }
