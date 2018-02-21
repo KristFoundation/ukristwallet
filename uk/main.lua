@@ -8,6 +8,7 @@ local await = jua.await
 
 local sha256 = require("uk.crypto.sha256")
 local kw = require("uk.crypto.wallet.kristwallet")
+local jw = require("uk.crypto.wallet.jwalelset")
 local mkv2 = require("uk.crypto.address.v2")
 
 jua.on("terminate", function()
@@ -17,7 +18,7 @@ end)
 
 jua.go(function()
   print(sha256("A"))
-  print(mkv2(kw("hello")))
+  print(mkv2(jw("hello")))
   log("Info", LogType.INFO)
   jua.stop()
 end)
