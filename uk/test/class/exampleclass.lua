@@ -1,6 +1,6 @@
 local example = require("uk.type.class")("ExampleClass")
-  :include(require("uk.type.example.examplemixinone"))
-  :include(require("uk.type.example.examplemixintwo"))
+  :include(require("uk.test.class.examplemixinone"))
+  :include(require("uk.test.class.examplemixintwo"))
 
 example.static.static_value = "This is a static value."
 
