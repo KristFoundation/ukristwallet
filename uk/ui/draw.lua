@@ -71,7 +71,7 @@ end
 function draw:draw(draw, xo, yo)
   for y = 1, draw.height do
     for x = 1, draw.width do
-      self:pixel(x + xo, y + yo, draw:getpixel(x, y))
+      self:pixel(x + xo - 1, y + yo - 1, draw:getpixel(x, y))
     end
   end
 end
