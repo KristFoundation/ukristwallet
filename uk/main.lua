@@ -2,8 +2,7 @@ local logger = require("uk.extra.logger")
 local log = logger.log
 local LogType = logger.LogType
 
-local ghrequire = require("uk.dep.ghrequire")
-local jua = ghrequire("justync7","Jua","jua.lua")
+local jua = require("uk.dep.pin.jua")
 local await = jua.await
 
 local sha256 = require("uk.crypto.sha256")
