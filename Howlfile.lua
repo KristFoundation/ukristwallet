@@ -4,6 +4,7 @@ Tasks:clean()
 
 Tasks:require "main" {
 	include = "uk/*.lua",
+	exclude = "uk/test*",
 	startup = "uk/main.lua",
 	output = "build/ukristwallet.lua"
 }
