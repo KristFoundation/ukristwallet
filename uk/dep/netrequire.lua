@@ -12,7 +12,6 @@ return function(url)
     local fi = fs.open(path, "w")
     fi.write(req.readAll())
     fi.close()
-    --req.close()
     print(path)
     return dofile(path)
   else
