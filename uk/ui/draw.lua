@@ -6,8 +6,8 @@ local draw = require("uk.type.class")("Draw")
 function draw:initialize(w, h, fg, bg)
   self.width = w
   self.height = h
-  self.foreground = c2h(fg)
-  self.background = c2h(bg)
+  self.foreground = type(fg) == "number" and c2h(fg) or fg
+  self.background = type(bg) == "number" and c2h(bg) or bg
   self._tbuf = {}
   self._fbuf = {}
   self._bbuf = {}
@@ -19,6 +19,9 @@ function draw:transformpos(x, y)
 end
 
 function draw:clear(fg, bg)
+  self.foreground = type(fg) == "number" and c2h(fg) or fg
+  self.background = type(bg) == "number" and c2h(bg) or bg
+
   for i = 1, self.height * self.width do
     self._tbuf[i] = " "
     self._fbuf[i] = self.foreground

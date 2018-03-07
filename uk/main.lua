@@ -17,9 +17,15 @@ jua.on("terminate", function()
 end)
 
 jua.go(function()
+  local t = {"0","1","2","3","4","5","6","7","8","9","a","b","c","d","e","f"}
   local w, h = term.getSize()
+  local p = 1
   local d = draw(w, h, colors.black, colors.white)
-  local d2 = draw(10, 10, colors.white, colors.black)
-  d:draw(d2, 1, 1)
-  d:render(term, 1, 1)
+  local d2 = draw(w - p * 2, h - p * 2, colors.white, colors.black)
+
+  jua.setInterval(function()
+    d2:clear(colors.white, t[math.random(#t)])
+    d:draw(d2, p + 1, p + 1)
+    d:render(term, 1, 1)
+  end, 0.1)
 end)
