@@ -11,6 +11,7 @@ function draw:initialize(w, h, fg, bg)
   self._tbuf = {}
   self._fbuf = {}
   self._bbuf = {}
+  self.children = {}
   self:clear(self.foreground, self.background)
 end
 
@@ -50,6 +51,21 @@ function draw:pixel(x, y, t, f, b)
   end
 end
 
+function draw:text(text, x, y, fg, bg)
+  if type(text) ~= "string" then
+    text = tostring(text)
+  end
+  
+  for i = 1, text:len() do
+    local char = text:sub(i, i)
+    if char ~= "\n" then
+      self:pixel(x + i - 1, y, char, fg, bg)
+    else
+      y = y + 1
+    end
+  end
+end
+
 function draw:box(x, y, x2, y2, c)
   local w, h = x2 - x, y2 - y
 
@@ -79,7 +95,18 @@ function draw:draw(draw, xo, yo)
   end
 end
 
+function draw:child(draw, xo, yo)
+  table.insert(self.children, {
+    x = xo,
+    y = yo,
+    draw = draw
+  })
+end
+
 function draw:_render()
+  for k, v in pairs(self.children) do
+    self:draw(v.draw, v.x, v.y)
+  end
   local t, f, b = {}, {}, {}
 
   for y = 1, self.height do
