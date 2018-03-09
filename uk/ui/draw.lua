@@ -6,8 +6,8 @@ local draw = require("uk.type.class")("Draw")
 function draw:initialize(w, h, fg, bg)
   self.width = w
   self.height = h
-  self.foreground = type(fg) == "number" and c2h(fg) or fg
-  self.background = type(bg) == "number" and c2h(bg) or bg
+  self.foreground = type(fg) == "number" and c2h(fg) or fg or " "
+  self.background = type(bg) == "number" and c2h(bg) or bg or " "
   self._tbuf = {}
   self._fbuf = {}
   self._bbuf = {}
@@ -16,17 +16,22 @@ function draw:initialize(w, h, fg, bg)
 end
 
 function draw:transformpos(x, y)
+  if x > self.width then
+    error("X out of bounds: "..x.."/"..self.width)
+  elseif y > self.height then
+    error("Y out of bounds: "..y.."/"..self.height)
+  end
   return self.width * (y - 1) + x
 end
 
 function draw:clear(fg, bg)
-  self.foreground = type(fg) == "number" and c2h(fg) or fg
-  self.background = type(bg) == "number" and c2h(bg) or bg
+  fg = type(fg) == "number" and c2h(fg) or fg or self.foreground
+  bg = type(bg) == "number" and c2h(bg) or bg or self.background
 
   for i = 1, self.height * self.width do
     self._tbuf[i] = " "
-    self._fbuf[i] = self.foreground
-    self._bbuf[i] = self.background
+    self._fbuf[i] = fg
+    self._bbuf[i] = bg
   end
 end
 
@@ -37,16 +42,21 @@ function draw:getpixel(x, y)
 end
 
 function draw:pixel(x, y, t, f, b)
+  t = t and t:sub(1,1) or nil
+  f = type(f) == "number" and c2h(f) or f
+  b = type(b) == "number" and c2h(b) or b
+
   local pos = self:transformpos(x, y)
-  if t then
+
+  if t and t ~= " " then
     self._tbuf[pos] = t
   end
 
-  if f then
+  if f and f ~= " " then
     self._fbuf[pos] = f
   end
 
-  if b then
+  if b and b ~= " " then
     self._bbuf[pos] = b
   end
 end
@@ -55,7 +65,7 @@ function draw:text(text, x, y, fg, bg)
   if type(text) ~= "string" then
     text = tostring(text)
   end
-  
+
   for i = 1, text:len() do
     local char = text:sub(i, i)
     if char ~= "\n" then
@@ -76,8 +86,8 @@ function draw:box(x, y, x2, y2, c)
 end
 
 function draw:hline(x, y, l, c)
-  for i = 0, l do
-    self:pixel(x + i, y, nil, nil, c2h(c))
+  for i = 1, l do
+    self:pixel(x + i - 1, y, nil, nil, c2h(c))
   end
 end
 

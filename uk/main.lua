@@ -18,8 +18,15 @@ jua.on("terminate", function()
 end)
 
 jua.go(function()
-  local t = {"0","1","2","3","4","5","6","7","8","9","a","b","c","d","e","f"}
-  local w, h = term.getSize()
-  local p = 1
-  view:render(term, 1, 1)
+  local renderTimes = 0
+  jua.setInterval(function()
+    view:refresh()
+    view.window:render(term, 1, 1)
+    renderTimes = renderTimes + 1
+  end, 0.05)
+
+  jua.setInterval(function()
+    view.fps = renderTimes
+    renderTimes = 0
+  end, 1)
 end)
