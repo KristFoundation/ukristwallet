@@ -1,4 +1,5 @@
 local draw = require("uk.ui.draw")
+local text = require("uk.ui.text")
 
 local w, h = term.getSize()
 local mainWindow = draw(w, h, colors.black, colors.white)
@@ -7,10 +8,12 @@ local paneW = math.floor(w/4)
 local leftPane = draw(paneW, h, colors.white, colors.gray)
 local padding = 1
 leftPane:hline(padding + 1, padding + 1, paneW - (padding * 2), colors.white)
-local mainPane = draw(paneW*(paneDivison - 1), h)
-mainPane:text("Hello, world!", 2, 2)
+local mainPane = draw(paneW*(paneDivison - 1), h, colors.black, colors.white)
+local t = text("Hello, World!")
+mainPane:child(t, 2, 2)
 mainWindow:child(leftPane, 1, 1)
 mainWindow:child(mainPane, 1+paneW, 1)
+mainWindow:child(text, 1, 1)
 local i = 1
 
 return {
@@ -18,9 +21,9 @@ return {
   refresh = function(self)
     local t = {"0","1","2","3","4","5","6","7","8","9","a","b","c","d","e","f"}
     local f, b = t[math.random(#t)], t[math.random(#t)]
-    mainPane:clear(f, b)
-    mainPane:text("Times rendered: "..i, 2, 2)
-    mainPane:text("FPS: "..self.fps, 2, 3)
+    --mainPane:clear(f, b)
+    mainPane:text("Times rendered: "..i, 2, 3)
+    mainPane:text("FPS: "..self.fps, 2, 4)
     i = i + 1
   end,
   fps = 0

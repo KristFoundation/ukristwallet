@@ -17,6 +17,8 @@ local lookup = {
     [colors.black]	= "f"
 }
 
-return function(color)
-  return lookup[color]
-end
+return setmetatable(lookup, {
+  __call = function(self, color)
+    return self[color]
+  end
+})

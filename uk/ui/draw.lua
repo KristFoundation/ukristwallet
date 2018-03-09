@@ -43,8 +43,8 @@ end
 
 function draw:pixel(x, y, t, f, b)
   t = t and t:sub(1,1) or nil
-  f = type(f) == "number" and c2h(f) or f
-  b = type(b) == "number" and c2h(b) or b
+  fg = f and (type(f) == "number" and c2h(f) or f) or self.foreground
+  bg = b and (type(b) == "number" and c2h(b) or b) or self.background
 
   local pos = self:transformpos(x, y)
 
@@ -52,12 +52,12 @@ function draw:pixel(x, y, t, f, b)
     self._tbuf[pos] = t
   end
 
-  if f and f ~= " " then
-    self._fbuf[pos] = f
+  if fg and f ~= " " then
+    self._fbuf[pos] = fg
   end
 
-  if b and b ~= " " then
-    self._bbuf[pos] = b
+  if bg and b ~= " " then
+    self._bbuf[pos] = bg
   end
 end
 
@@ -97,10 +97,12 @@ function draw:vline(x, y, l, c)
   end
 end
 
-function draw:draw(draw, xo, yo)
-  for y = 1, draw.height do
-    for x = 1, draw.width do
-      self:pixel(x + xo - 1, y + yo - 1, draw:getpixel(x, y))
+function draw:draw(d, xo, yo)
+  assert(type(d.height) == "number", "Height must be number")
+  assert(type(d.width) == "number", "Width must be number")
+  for y = 1, d.height do
+    for x = 1, d.width do
+      self:pixel(x + xo - 1, y + yo - 1, d:getpixel(x, y))
     end
   end
 end
